@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "SF109oL1uG2rJPE4OSjbm2Q6J2szDGy8gtY/rnb9gEsBC1oQ7EsQFwxXGZUp6CYLlM+xg4JNf8ltXm54oyC/YA==",
+  "success": true,
+  "projectFilePath": "/home/dani/RiderProjects/SpotifyApi/SpotifyApi/SpotifyApi.csproj",
+  "expectedPackageFiles": [
+    "/home/dani/.nuget/packages/microsoft.extensions.apidescription.server/3.0.0/microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "/home/dani/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
+    "/home/dani/.nuget/packages/swashbuckle.aspnetcore/5.6.3/swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
+    "/home/dani/.nuget/packages/swashbuckle.aspnetcore.swagger/5.6.3/swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
+    "/home/dani/.nuget/packages/swashbuckle.aspnetcore.swaggergen/5.6.3/swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
+    "/home/dani/.nuget/packages/swashbuckle.aspnetcore.swaggerui/5.6.3/swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512"
+  ],
+  "logs": []
+}
