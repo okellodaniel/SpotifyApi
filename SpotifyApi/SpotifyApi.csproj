@@ -12,4 +12,8 @@
       <Folder Include="Controllers" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ApiWrapper\ApiWrapper.csproj" />
+    </ItemGroup>
+
 </Project>
