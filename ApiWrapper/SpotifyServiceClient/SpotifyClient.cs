@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,6 +10,7 @@ using ApiWrapper.SpotifyServiceClient.Responses;
 using ApiWrapper.SpotifyServiceClient.Utilities;
 using Flurl.Http;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 
 namespace ApiWrapper.SpotifyServiceClient
 {
@@ -23,37 +27,38 @@ namespace ApiWrapper.SpotifyServiceClient
             var client_id = _configuration.GetValue<string>("Spotify:ClientId");
             var client_secret = _configuration.GetValue<string>("Spotify:ClientSecret");
 
-            var authorization = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{client_id}:{client_secret}"));
-
             var request = new AuthorizationRequest()
             {
-                Grant_type = "client_credentials"
+                GrantType = "client_credentials"
             };
-
+            
+            var authorization = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{client_id}:{client_secret}"));
+            
             var baseUrl = _configuration.GetValue<string>("Spotify:BaseUrl");
 
             var result = await baseUrl
                 .AllowAnyHttpStatus()
                 .AppendPathSegment(EndPoints.AuthorizationRequest)
-                .WithHeader("Basic", $"{authorization}")
+                .WithHeader("Authorization", $"Basic {authorization}")
+                .WithHeader("Content-Type","application/x-www-form-urlencoded")
                 .PostUrlEncodedAsync(new
                 {
-                    grant_type = request.Grant_type
+                    grant_type = request.GrantType
                 });
-
+            
             if (result.StatusCode >= 300)
             {
                 var error = await result.GetJsonAsync<ErrorResponse>();
-
+            
                 return new Response<AuthorizationResponse>()
                 {
                     StatusCode = result.StatusCode,
                     Error = error
                 };
             }
-
+            
             var data = await result.GetJsonAsync<AuthorizationResponse>();
-
+            
             return new Response<AuthorizationResponse>()
             {
                 StatusCode = result.StatusCode,

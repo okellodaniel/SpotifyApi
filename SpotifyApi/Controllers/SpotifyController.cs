@@ -13,7 +13,7 @@ namespace SpotifyApi.Controllers
         {
             _spotifyClient = spotifyClient;
         }
-        // POST
+        // Post
         [HttpPost("AuthorizationRequest")]
         public async Task<ActionResult<Response<AuthorizationResponse>>> AuthorizationRequest()
         {
