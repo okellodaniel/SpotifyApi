@@ -2,12 +2,12 @@ namespace ApiWrapper.SpotifyServiceClient.Responses
 {
     public class ErrorResponse
     {
-        public Error error { get; set; }
+        public Error Error { get; set; }
     }
     public class Error
     {
-        public int status { get; set; }
-        public string message { get; set; }
+        public int Status { get; set; }
+        public string Message { get; set; }
     }
 
 }

@@ -20,5 +20,14 @@ namespace SpotifyApi.Controllers
             var response = await _spotifyClient.AuthorizationAsync();
             return StatusCode(response.StatusCode, response);
         }
+        
+        // Get New-Releases
+
+        [HttpGet("NewReleases")]
+        public async Task<ActionResult<Response<GetNewReleasesResponse>>> GetNewReleasesAsync()
+        {
+            var response = await _spotifyClient.GetNewReleasesAsync();
+            return StatusCode(response.StatusCode, response);
+        }
     }
 }

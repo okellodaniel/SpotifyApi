@@ -17,10 +17,11 @@ namespace ApiWrapper.SpotifyServiceClient
     public class SpotifyClient : ISpotifyClient
     {
         private readonly IConfiguration _configuration;
-
+        private Response<AuthorizationResponse> _bearerTokenResponse;
         public SpotifyClient(IConfiguration configuration)
         {
             _configuration = configuration;
+            _bearerTokenResponse = AuthorizationAsync().Result;
         }
         public async Task<Response<AuthorizationResponse>> AuthorizationAsync(CancellationToken cancellationToken = default)
         {
@@ -55,6 +56,46 @@ namespace ApiWrapper.SpotifyServiceClient
             var data = await result.GetJsonAsync<AuthorizationResponse>();
             
             return new Response<AuthorizationResponse>()
+            {
+                StatusCode = result.StatusCode,
+                Data = data
+            };
+        }
+
+        public async Task<Response<GetNewReleasesResponse>> GetNewReleasesAsync(CancellationToken cancellationToken = default)
+        {
+            if (_bearerTokenResponse.Error != null)
+            {
+                return new Response<GetNewReleasesResponse>()
+                {
+                    StatusCode = _bearerTokenResponse.StatusCode,
+                    Error = _bearerTokenResponse.Error
+                };
+            }
+
+            var bearerToken = _bearerTokenResponse.Data.Access_token;
+            var baseUrl = _configuration.GetValue<string>("Spotify:BaseUrl");
+
+            var result = await baseUrl
+                .AllowAnyHttpStatus()
+                .WithHeader("Content-Type", "application/json")
+                .AppendPathSegment(EndPoints.GetNewReleasesRequest)
+                .WithOAuthBearerToken(bearerToken)
+                .GetAsync();
+
+            if (result.StatusCode >= 300)
+            {
+                var error = await result.GetJsonAsync<ErrorResponse>();
+                return new Response<GetNewReleasesResponse>()
+                {
+                    StatusCode = result.StatusCode,
+                    Error = error
+                };
+            }
+
+            var data = await result.GetJsonAsync<GetNewReleasesResponse>();
+
+            return new Response<GetNewReleasesResponse>()
             {
                 StatusCode = result.StatusCode,
                 Data = data
