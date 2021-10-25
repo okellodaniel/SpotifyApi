@@ -31,4 +31,3 @@
 /home/dani/RiderProjects/SpotifyApi/SpotifyApi/obj/Debug/net5.0/ref/SpotifyApi.dll
 /home/dani/RiderProjects/SpotifyApi/SpotifyApi/obj/Debug/net5.0/SpotifyApi.pdb
 /home/dani/RiderProjects/SpotifyApi/SpotifyApi/obj/Debug/net5.0/SpotifyApi.genruntimeconfig.cache
-/home/dani/RiderProjects/SpotifyApi/SpotifyApi/obj/Debug/net5.0/SpotifyApi.csproj.CopyComplete

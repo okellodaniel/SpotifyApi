@@ -27,11 +27,6 @@ namespace ApiWrapper.SpotifyServiceClient
             var client_id = _configuration.GetValue<string>("Spotify:ClientId");
             var client_secret = _configuration.GetValue<string>("Spotify:ClientSecret");
 
-            var request = new AuthorizationRequest()
-            {
-                GrantType = "client_credentials"
-            };
-            
             var authorization = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{client_id}:{client_secret}"));
             
             var baseUrl = _configuration.GetValue<string>("Spotify:BaseUrl");
@@ -43,7 +38,7 @@ namespace ApiWrapper.SpotifyServiceClient
                 .WithHeader("Content-Type","application/x-www-form-urlencoded")
                 .PostUrlEncodedAsync(new
                 {
-                    grant_type = request.GrantType
+                    grant_type = "client_credentials"
                 });
             
             if (result.StatusCode >= 300)
