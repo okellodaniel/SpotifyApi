@@ -29,9 +29,9 @@ namespace ApiWrapper.SpotifyServiceClient
 
             var authorization = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{client_id}:{client_secret}"));
             
-            var baseUrl = _configuration.GetValue<string>("Spotify:BaseUrl");
+            var authUrl = _configuration.GetValue<string>("Spotify:AuthUrl");
 
-            var result = await baseUrl
+            var result = await authUrl
                 .AllowAnyHttpStatus()
                 .AppendPathSegment(EndPoints.AuthorizationRequest)
                 .WithHeader("Authorization", $"Basic {authorization}")
